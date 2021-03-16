@@ -1,0 +1,14 @@
+import com.drools.model.*;
+dialect  "mvel"
+
+rule "Simple JudgeF"
+salience 10
+when
+   ps : ProductSteel()
+   oi : OrderInfo(reverseAngle != ps.reverseAngle)
+   $jr : JudgeResult()
+then
+   $jr.setResultTag("fff");
+   System.out.println("here ffffffffffffffffff");
+   delete(ps);
+end

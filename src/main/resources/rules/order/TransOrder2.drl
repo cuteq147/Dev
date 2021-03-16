@@ -1,0 +1,15 @@
+import com.drools.model.*;
+dialect  "mvel"
+
+rule "Simple Judge Right"
+agenda-group "groupRight"
+salience 200
+when
+   ps : ProductSteel()
+   oi : OrderInfo(steelEle != ps.steelEle)
+   $jr : JudgeResult()
+then
+   $jr.setAnTag("right001");
+   System.out.println("here rrrrrrrrrrrrrrrrr");
+   
+end

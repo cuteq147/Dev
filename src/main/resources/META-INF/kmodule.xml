@@ -1,0 +1,5 @@
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="TransOrderKB" packages="rules.order">
+        <ksession name="TransOrderKS" type="stateless"/>
+    </kbase>
+</kmodule>

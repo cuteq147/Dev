@@ -1,0 +1,107 @@
+package rules.order
+
+import com.drools.model.*;
+dialect  "mvel"
+
+rule "Simple Judge entry"
+auto-focus true
+no-loop true
+agenda-group "groupMain"
+salience -1
+when
+   ps : ProductSteel(type == "FOIL")
+then
+kcontext.getKieRuntime().getAgenda().getAgendaGroup("groupRight").setFocus();
+System.out.println("here rightrightright");
+end
+
+rule "Simple Judge entryA"
+auto-focus true
+no-loop true
+agenda-group "groupMain"
+salience -2
+when
+   ps : ProductSteel(type in ("BAR","ROD"))
+then
+kcontext.getKieRuntime().getAgenda().getAgendaGroup("groupLeft").setFocus();
+System.out.println("here leftleftleft");
+end
+
+
+rule "Simple Judge"
+agenda-group "groupLeft"
+salience 100
+no-loop true
+when
+   ps : ProductSteel(); oi : OrderInfo(reverseAngle != ps.reverseAngle); $jr : JudgeResult()
+then
+   $jr.setResultTag("111");
+   MessageResult mr= new MessageResult("111");
+   System.out.println("here 11111111111111111111111");
+   //insert(mr);
+   delete(ps);
+end
+
+rule "Simple JudgeA1"
+agenda-group "groupLeft"
+salience 90
+when
+   ps : ProductSteel()
+   oi : OrderInfo()
+   $jr : JudgeResult(resultTag =='111')
+   $mr : MessageResult(resultMsg =='111')
+then
+   $jr.setResultTag("www");
+   System.out.println("here wowowowowowowo");
+   delete(ps);
+end
+
+rule "Simple JudgeA"
+agenda-group "groupLeft"
+salience 90
+when
+   ps : ProductSteel()
+   oi : OrderInfo(packageNo != ps.packageNo)
+   $jr : JudgeResult(resultTag !='Y')
+then
+   $jr.setResultTag("222");
+   System.out.println("here 2222222222222");
+   delete(ps);
+end
+
+rule "Simple JudgeB"
+agenda-group "groupLeft"
+salience 80
+when
+   ps : ProductSteel()
+   oi : OrderInfo(skinCover != ps.skinCover)
+   $jr : JudgeResult(resultTag !='X')
+then
+System.out.println("here 3333333333");
+   $jr.setResultTag("333");
+   delete(ps);
+end
+
+rule "Simple JudgeC"
+agenda-group "groupLeft"
+salience 70
+when
+   ps : ProductSteel()
+   oi : OrderInfo(tag != ps.tag)
+   $jr : JudgeResult(resultTag !='X')
+then
+System.out.println("here 444444");
+   $jr.setResultTag("444");
+end
+
+rule "Simple JudgeD"
+agenda-group "groupLeft"
+salience 60
+when
+   ps : ProductSteel()
+   oi : OrderInfo(skinColor != ps.skinColor)
+   $jr : JudgeResult(resultTag !='X')
+then
+System.out.println("here 5555555");
+   $jr.setResultTag("555");
+end
