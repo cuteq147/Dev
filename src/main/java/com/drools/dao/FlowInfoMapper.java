@@ -22,8 +22,8 @@ public interface FlowInfoMapper {
 })
     //void save(RuleCondition rule);
 	@Select("select f.fid,f.name,f.salience_no,a.content as aContent,c.content cContent,c.id cId "
-			+ " from ur09051e_f_info f join  ur09051_rule_action a "
-			+ " on f.action_id = a.id join ur09051_rule_condition c on f.condition_id = c.id"
+			+ " from urxxxxxe_f_info f join  urxxxxx_rule_action a "
+			+ " on f.action_id = a.id join urxxxxx_rule_condition c on f.condition_id = c.id"
 			+ " where f.fid=#{flowId}")
 	List<FlowInfoTO> findAll(@Param("flowId") long flowId);
 
@@ -37,9 +37,9 @@ public interface FlowInfoMapper {
 		public static String geFlowsById(final Long id) {
 			return new SQL(){{
 				SELECT("f.fid,f.name,f.salience_no,a.content as aContent,c.content cContent,c.id cId");
-				FROM("ur09051e_f_info f");
-				INNER_JOIN("ur09051_rule_action a on a.id = f.action_id");
-				INNER_JOIN("ur09051_rule_condition c on c.id = f.condition_id");
+				FROM("urxxxxxe_f_info f");
+				INNER_JOIN("urxxxxx_rule_action a on a.id = f.action_id");
+				INNER_JOIN("urxxxxx_rule_condition c on c.id = f.condition_id");
 				if (id != 0) {
 					WHERE("f.fid = #{id}");
 				}
@@ -47,6 +47,6 @@ public interface FlowInfoMapper {
 		}
 	}
 
-	@Insert("INSERT INTO ur09051e_f_info(fid, name, condition_id,action_id,salience_no) VALUES(#{id}, #{name}, #{conditionId},#{actionId}, #{salienceNo})")
+	@Insert("INSERT INTO urxxxxxe_f_info(fid, name, condition_id,action_id,salience_no) VALUES(#{id}, #{name}, #{conditionId},#{actionId}, #{salienceNo})")
 	Long insertFlowInfo(FlowInfoTO flowInfo);
 }
